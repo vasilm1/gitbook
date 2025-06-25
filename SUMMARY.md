@@ -1,13 +1,11 @@
 # Table of contents
 
-* [Overview](README.md)
-
 ## Architecture
 
-* [System Architecture](architecture/README.md)
-* [Core Components](architecture/README.md#core-components)
-* [Data Flow](architecture/README.md#data-flow)
-* [Security Model](architecture/README.md#security-model)
+* [System Architecture](README.md)
+* [Core Components](README.md#core-components)
+* [Data Flow](README.md#data-flow)
+* [Security Model](README.md#security-model)
 
 ## Core Modules
 
@@ -33,4 +31,4 @@
 * [Deployment Guide](deployment/README.md)
 * [Local Setup](deployment/README.md#local-setup)
 * [HF Radio Bridge](deployment/README.md#hf-radio-bridge)
-* [Cloud Deployment](deployment/README.md#cloud-deployment) 
+* [Cloud Deployment](deployment/README.md#cloud-deployment)

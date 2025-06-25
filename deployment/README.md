@@ -1,9 +1,9 @@
 # Deployment Guide
 
-Complete guide for deploying Bunkercoin in various environments, from local development to production radio networks. This documentation covers setup, configuration, and operational considerations for different deployment scenarios.
+Complete guide for deploying BunkerChain in various environments, from local development to production radio networks. This documentation covers setup, configuration, and operational considerations for different deployment scenarios.
 
 {% hint style="warning" %}
-**Experimental Software:** Bunkercoin is experimental blockchain technology. Do not use for production financial systems or critical infrastructure. Intended for research, education, and amateur radio experimentation only.
+**Experimental Software:** BunkerChain is experimental blockchain technology. Do not use for production financial systems or critical infrastructure. Intended for research, education, and amateur radio experimentation only.
 {% endhint %}
 
 ## Local Setup
@@ -11,12 +11,14 @@ Complete guide for deploying Bunkercoin in various environments, from local deve
 ### Prerequisites
 
 **System Requirements:**
-- **Operating System:** Linux, macOS, or Windows 10+
-- **Memory:** 512MB RAM minimum, 2GB recommended
-- **Storage:** 100MB for blockchain data (grows over time)
-- **Network:** Internet connection for peer synchronization
+
+* **Operating System:** Linux, macOS, or Windows 10+
+* **Memory:** 512MB RAM minimum, 2GB recommended
+* **Storage:** 100MB for blockchain data (grows over time)
+* **Network:** Internet connection for peer synchronization
 
 **Development Dependencies:**
+
 ```bash
 # Rust toolchain (required)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -25,23 +27,6 @@ source ~/.cargo/env
 # Additional tools (optional)
 sudo apt-get install git curl wget  # Ubuntu/Debian
 brew install git curl wget          # macOS
-```
-
-### Building from Source
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/manhattanproject.git
-cd manhattanproject
-
-# Build release binary
-cargo build --release
-
-# Install binary to PATH
-cargo install --path .
-
-# Verify installation
-bunkercoin --version
 ```
 
 ### Quick Start
@@ -63,6 +48,7 @@ curl http://localhost:10000/events
 ## Configuration
 
 ### Data Directory Structure
+
 ```
 data/
 ├── wallet.json         # Ed25519 keypair and nonce state
@@ -76,6 +62,7 @@ data/
 ### Configuration Options
 
 **CLI Arguments:**
+
 ```bash
 bunkercoin node \
     --mine                    # Enable mining
@@ -85,6 +72,7 @@ bunkercoin node \
 ```
 
 **Environment Variables:**
+
 ```bash
 export BUNKERCOIN_DATA_DIR=/opt/bunkercoin/data
 export BUNKERCOIN_LOG_LEVEL=debug
@@ -95,9 +83,10 @@ export BUNKERCOIN_PEERS="peer1.example.com,peer2.example.com"
 
 ### Radio Interface Setup
 
-Bunkercoin is specifically designed for HF radio deployment using digital modes:
+BunkerChain is specifically designed for HF radio deployment using digital modes:
 
 #### JS8Call Integration
+
 ```bash
 # Configure JS8Call for blockchain relay
 # 1. Set up JS8Call with your radio
@@ -124,6 +113,7 @@ done
 ```
 
 #### VARA Modem Support
+
 ```python
 # Python bridge for VARA HF modems
 import requests
@@ -163,13 +153,15 @@ if __name__ == "__main__":
 ```
 
 **Station Roles:**
-- **Gateway:** Internet-connected station providing network bridge
-- **Relay:** Packet forwarding between radio segments
-- **End Node:** Transaction origination and wallet operations
+
+* **Gateway:** Internet-connected station providing network bridge
+* **Relay:** Packet forwarding between radio segments
+* **End Node:** Transaction origination and wallet operations
 
 ### Radio Protocol Considerations
 
 #### Frequency Planning
+
 ```bash
 # Example frequency coordination
 # 40m: 7.035-7.040 MHz (JS8Call blockchain relay)
@@ -179,6 +171,7 @@ if __name__ == "__main__":
 ```
 
 #### Timing Synchronization
+
 ```bash
 # GPS-disciplined frequency standards recommended
 # Block timing: 30-second intervals aligned to UTC
@@ -205,6 +198,7 @@ CMD ["bunkercoin", "node", "--mine", "--peers", "$BUNKERCOIN_PEERS"]
 ```
 
 **Docker Compose:**
+
 ```yaml
 # docker-compose.yml
 version: '3.8'
@@ -217,7 +211,7 @@ services:
     volumes:
       - bunkercoin_data:/app/data
     environment:
-      - BUNKERCOIN_PEERS=manhattanproject.onrender.com
+      - BUNKERCOIN_PEERS=chain.bunkerchain.dev
     restart: unless-stopped
 
 volumes:
@@ -227,6 +221,7 @@ volumes:
 ### Cloud Provider Configuration
 
 #### AWS Deployment
+
 ```bash
 # EC2 instance with security groups
 aws ec2 run-instances \
@@ -244,6 +239,7 @@ aws ec2 authorize-security-group-ingress \
 ```
 
 #### Render.com Deployment
+
 ```yaml
 # render.yaml
 services:
@@ -423,6 +419,7 @@ echo "Backup completed: $BACKUP_DIR.tar.gz"
 ### Common Issues
 
 **Node Won't Start:**
+
 ```bash
 # Check data directory permissions
 ls -la data/
@@ -434,6 +431,7 @@ bunkercoin --version
 ```
 
 **Peer Connection Problems:**
+
 ```bash
 # Test peer connectivity
 curl http://peer.example.com:10000/sync
@@ -444,6 +442,7 @@ netstat -tlnp | grep 10000
 ```
 
 **Blockchain Sync Issues:**
+
 ```bash
 # Reset blockchain (CAUTION: loses local data)
 rm data/chain.json
@@ -508,4 +507,4 @@ systemctl start bunkercoin
 
 # Validate upgrade
 curl http://localhost:10000/sync
-``` 
+```
